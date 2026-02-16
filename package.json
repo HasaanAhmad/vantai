@@ -2,22 +2,34 @@
   "name": "vantai",
   "version": "1.0.0",
   "description": "Meeting requirements bot - extracts requirements and detects red flags from client meetings",
-  "main": "dist/index.js",
+  "main": "dist/app.js",
   "type": "module",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "tsx watch src/index.ts",
+    "build": "prisma generate && tsc",
+    "postinstall": "prisma generate",
+    "start": "node dist/app.js",
+    "dev": "tsx watch src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@auth/express": "^0.12.1",
+    "@auth/prisma-adapter": "^2.11.1",
+    "@prisma/adapter-pg": "^7.4.0",
+    "@prisma/client": "^7.4.0",
+    "@prisma/extension-accelerate": "^3.0.1",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "pg": "^8.18.0",
     "puppeteer": "^24.37.3"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^22.10.0",
+    "@types/pg": "^8.16.0",
+    "prisma": "^7.4.0",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0"
   },

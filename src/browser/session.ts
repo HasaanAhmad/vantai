@@ -43,7 +43,7 @@ export class BrowserSession {
     const { headed = true, meetingUrl } = options;
 
     this.browser = await puppeteer.launch({
-      headless: headed ? false : "new", // headed=true means visible browser (needed for real audio)
+      headless: headed ? false : true, // headed=true means visible browser (needed for real audio)
       args: AUDIO_VIDEO_ARGS,
       defaultViewport: null,
       ignoreDefaultArgs: ["--mute-audio"],
