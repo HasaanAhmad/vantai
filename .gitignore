@@ -4,4 +4,4 @@ dist/
 .env
 .DS_Store
 
-/generated/prisma
+src/generated
