@@ -1,11 +1,10 @@
 /**
  * Meeting service - handles session launch, joining meetings, and bot lifecycle.
- * Extracted from index.ts for use by CLI and API routes.
  */
 
-import { BrowserSession } from "../browser/session.js";
-import { joinMeeting } from "../meeting/join.js";
-import { config } from "../config/index.js";
+import { BrowserSession } from "@/browser/session";
+import { joinMeeting } from "@/meeting/join";
+import { config } from "@/config/index";
 
 export interface JoinMeetingParams {
   meetingUrl: string;

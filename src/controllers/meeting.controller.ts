@@ -3,7 +3,7 @@
  */
 
 import type { Request, Response } from "express";
-import { startMeetingSession } from "../services/meeting.service.js";
+import { startMeetingSession } from "@/services/meeting.service";
 
 /** Basic URL validation for meeting links */
 function isValidMeetingUrl(url: string): boolean {

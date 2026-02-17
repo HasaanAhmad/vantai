@@ -1,4 +1,4 @@
-import { PrismaClient } from "../generated/prisma/client.js";
+import { PrismaClient } from "@/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { withAccelerate } from "@prisma/extension-accelerate";
 
@@ -14,7 +14,8 @@ const globalForPrisma = globalThis as unknown as {
 
 function createPrismaClient() {
   if (isAccelerate) {
-    if (!databaseUrl) throw new Error("DATABASE_URL required for Prisma Accelerate");
+    if (!databaseUrl)
+      throw new Error("DATABASE_URL required for Prisma Accelerate");
     const base = new PrismaClient({ accelerateUrl: databaseUrl });
     return base.$extends(withAccelerate());
   }
@@ -23,8 +24,7 @@ function createPrismaClient() {
   return new PrismaClient({ adapter });
 }
 
-export const prisma =
-  globalForPrisma.prisma ?? createPrismaClient();
+export const prisma = globalForPrisma.prisma ?? createPrismaClient();
 
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;

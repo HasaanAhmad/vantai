@@ -1,28 +1,34 @@
+/**
+ * Express app - middleware, routes, error handling.
+ * Import app for testing; use server.ts to run.
+ */
 
-import "dotenv/config";
 import express, { type Express } from "express";
-import authRouter from "./routes/auth.route.js";
-import meetingRouter from "./routes/meeting.route.js";
+import { requestLogger } from "@/middleware/logger";
+import { errorHandler } from "@/middleware/errorHandler";
+import { authRouter, meetingRouter } from "@/routes/index";
 
 const app: Express = express();
 
 app.set("trust proxy", true);
 
-// Middleware
+// Middleware (logger first so it runs for every request)
+app.use(requestLogger);
 app.use(express.json());
 
 // Routes
-app.use("/auth", authRouter);
-app.use("/api/meetings", meetingRouter);
-
-// Root health check
 app.get("/", (_req, res) => {
   res.json({ status: "ok", service: "vantai" });
 });
+app.use("/auth", authRouter);
+app.use("/api/meetings", meetingRouter);
 
-const PORT = process.env.PORT ?? 3000;
-app.listen(PORT, () => {
-  console.log(`[Vantai] Server listening on http://localhost:${PORT}`);
+// 404 - no route matched
+app.use((_req, res) => {
+  res.status(404).json({ error: "Not found" });
 });
+
+// Error handler (must be last)
+app.use(errorHandler);
 
 export default app;
