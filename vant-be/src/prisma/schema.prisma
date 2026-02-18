@@ -22,6 +22,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  accessTokens  AccessToken[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
  
@@ -58,6 +59,20 @@ model Session {
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model AccessToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([token])
+  @@index([userId])
 }
  
 model VerificationToken {

@@ -84,7 +84,7 @@ pnpm exec prisma migrate dev
 2. Create a project (or use existing)
 3. Enable **Google+ API** (or **Google Identity**)
 4. Create OAuth 2.0 credentials (Web application)
-5. Add authorized redirect URI: `http://localhost:3000/auth/callback/google`
+5. Add authorized redirect URI: `http://localhost:{PORT}/auth/callback/google` (e.g. `http://localhost:6969/auth/callback/google` if PORT=6969)
 6. Copy Client ID and Client Secret to `.env`
 
 ## Usage
