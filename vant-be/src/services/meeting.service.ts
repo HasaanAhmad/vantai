@@ -13,6 +13,7 @@ export interface JoinMeetingParams {
 
 export interface MeetingSession {
   session: BrowserSession;
+  /** Stops the caption scraper and closes the browser. */
   close: () => Promise<void>;
 }
 
@@ -39,13 +40,17 @@ export async function startMeetingSession(params: JoinMeetingParams): Promise<Me
     meetingUrl,
   });
 
-  await joinMeeting(page, {
+  // joinMeeting now returns a stopCaptions function
+  const stopCaptions = await joinMeeting(page, {
     meetingUrl,
     displayName: botName,
   });
 
   return {
     session,
-    close: () => session.close(),
+    close: async () => {
+      stopCaptions();
+      await session.close();
+    },
   };
 }
